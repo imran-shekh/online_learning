@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load calc_discount %}
+
+{% block title %}
+  Online Learning
+{% endblock title %}
+
+{% block content %}
+<div class="container my-3">
+  <div class="row text-center">
+    {% for crs_dtls in course_dtls %}
+
+    <div class="card text-center m-3 d-flex p-3" style="width: 18rem;">
+  <img src="{{crs_dtls.course_img.url}}" class="card-img-top" alt="{{crs_dtls.course_img.url}}">
+  <div class="card-body">
+    <h3 class="card-title">{{crs_dtls.course_name}}</h3>
+    <p class="card-text">{{crs_dtls.desc}}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Course Price: Rs.<strike>{{crs_dtls.price}}</strike> </li>
+    <li class="list-group-item">Discount: {{crs_dtls.discount}}%</li>
+    <li class="list-group-item">You Pay Only: Rs.{% discounted_price crs_dtls.price crs_dtls.discount %}</li>
+  </ul>
+
+   <div class="card-body text-center">
+    <a href="#" class="card-link btn btn-primary">Enroll</a>
+    <a href="course/{{crs_dtls.slug}}/" class="card-link btn btn-primary">More</a>
+  </div>
+</div>
+ 
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock content %}
